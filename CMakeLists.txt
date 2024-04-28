@@ -3,4 +3,6 @@ project(baselib C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(baselib main.c)
+add_executable(baselib source/main.c
+        source/ds.h
+        source/baselib.h)
