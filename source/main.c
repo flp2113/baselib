@@ -6,8 +6,7 @@ DEFINE_NODE(int);
 DEFINE_LINKED_LIST(int);
 
 int main(){
-    ll_int linked_list  = {NULL, NULL, 0};
-
+    ll_int linked_list;
 
     APPEND_LL(int, &linked_list, 10);
     APPEND_LL(int, &linked_list, 20);
@@ -18,9 +17,7 @@ int main(){
 
     INSERT_LL(int, &linked_list, 5, 555);
 
-
-    PRINTLL("%d -> ", int, &linked_list);
-
+    PRINT_LL("%d -> ", int, &linked_list);
 
     return SUCCESS;
 }
