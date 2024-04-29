@@ -2,7 +2,6 @@
 #define BASELIB_DS_H
 
 #include <malloc.h>
-#include <stdlib.h>
 #include <stdio.h>
 
 #include "defs.h"
@@ -155,8 +154,32 @@
 //TODO: sort()
 //TODO: merge()
 //TODO: split()
-//TODO: length()
-//TODO: get_head()
-//TODO: get_tail()
+
+/**
+ * @brief Get the length of a linked list.
+ * @param LL Linked list pointer. (&linked_list)
+ * @return Size of the linked list.
+ **/
+#define LENGTH_LL(LL) ({ \
+    (LL)->length;        \
+})
+
+/**
+ * @brief Pointer to the head of the linked list.
+ * @param LL Linked list pointer. (&linked_list)
+ * @return Pointer to the head of the linked list.
+ **/
+#define HEAD_LL(LL) ({  \
+    (LL)->head;         \
+})
+
+/**
+ * @brief Pointer to the tail of the linked list.
+ * @param LL Linked list pointer. (&linked_list)
+ * @return Pointer to the tail of the linked list.
+ **/
+#define TAIL_LL(LL) ({  \
+    (LL)->tail;         \
+})
 
 #endif //BASELIB_DS_H
