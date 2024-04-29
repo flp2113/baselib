@@ -1,7 +1,12 @@
+/** @file ds.h
+ *  @brief Data structure functions.
+ *  @author flp2113
+ */
+
 #ifndef BASELIB_DS_H
 #define BASELIB_DS_H
 
-#include <malloc.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #include "defs.h"
@@ -109,7 +114,7 @@
  **/
 #define INSERT_LL(TYPE, LL, INDEX, DATA) ({                 \
     if(INDEX < 0 || INDEX > (LL)->length){                  \
-        puts("OUT OF BOUNDS LINKED LIST INSERTION.");       \
+        puts("OUT OF BOUNDS LINKED LIST INSERTION.\n");     \
         exit(FAILURE);                                      \
     } else {                                                \
         node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);    \
@@ -144,9 +149,94 @@
     (LL)->length++;                                         \
 })
 
-//TODO: delete_end()
-//TODO: delete_start()
-//TODO: delete_pos()
+/**
+ * @brief Remove the last node of the linked list.
+ * @param LL Linked list pointer. (&linked_list)
+ * @return Void.
+ **/
+#define DELETE_TAIL_LL(LL) ({                                       \
+    if((LL)->head == NULL){                                         \
+        puts("DELETING TAIL NODE, BUT LINKED LIST IS EMPTY.\n");    \
+        exit(FAILURE);                                              \
+    } else if((LL)->length == 1){                                   \
+        free((LL)->head);                                           \
+        (LL)->head = NULL;                                          \
+        (LL)->tail = NULL;                                          \
+    } else {                                                        \
+        (LL)->tail = (LL)->tail->prev;                              \
+        free((LL)->tail->next);                                     \
+        (LL)->tail->next = NULL;                                    \
+    }                                                               \
+    (LL)->length--;                                                 \
+})
+
+/**
+ * @brief Remove the first node of the linked list.
+ * @param LL Linked list pointer. (&linked_list)
+ * @return Void.
+ **/
+#define DELETE_HEAD_LL(LL) ({ \
+    if((LL)->head == NULL) { \
+        puts("DELETING HEAD NODE, BUT LINKED LIST IS EMPTY. ");     \
+        exit(FAILURE);                                              \
+    } else if((LL)->length == 1) {                                  \
+        free((LL)->head);                                           \
+        (LL)->head = NULL;                                          \
+        (LL)->tail = NULL;                                          \
+    } else {                                                        \
+        (LL)->head = (LL)->head->next;                              \
+        free((LL)->head->prev);                                     \
+        (LL)->head->prev = NULL;                                    \
+    }                                                               \
+    (LL)->length--;                                                 \
+})
+
+//TODO: delete_pos() WORKING ON
+/**
+ * @brief Delete a node in a specified position in a linked list.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param LL Linked list pointer. (&linked_list)
+ * @param INDEX Index to be deleted in linked list. (0, 1, 2, ...)
+ * @return Void.
+ **/
+#define DELETE_POS_LL(TYPE, LL, INDEX) ({                               \
+    if(INDEX < 0 || INDEX > ((LL)->length - 1)){                        \
+        puts("OUT OF BOUNDS LINKED LIST DELETION.\n");                  \
+        exit(FAILURE);                                                  \
+    } else {                                                            \
+        if(INDEX == 0){                                                 \
+            if((LL)->length == 1){                                      \
+                free((LL)->head);                                       \
+                (LL)->head = NULL;                                      \
+                (LL)->tail = NULL;                                      \
+            } else {                                                    \
+                (LL)->head = (LL)->head->next;                          \
+                free((LL)->head->prev);                                 \
+                (LL)->head->prev = NULL;                                \
+            }                                                           \
+        } else if(INDEX == ((LL)->length - 1)){                         \
+            if(((LL)->length - 1) == 1){                                \
+                free((LL)->head);                                       \
+                (LL)->head = NULL;                                      \
+                (LL)->tail = NULL;                                      \
+            } else {                                                    \
+                (LL)->tail = (LL)->tail->prev;                          \
+                free((LL)->tail->next);                                 \
+                (LL)->tail->next = NULL;                                \
+            }                                                           \
+        } else {                                                        \
+            node_##TYPE* current_node = (LL)->head;                     \
+            for(int i = 0; i <= INDEX; i++){                            \
+                current_node = current_node->next;                      \
+            }                                                           \
+            current_node->next->prev = current_node->prev;              \
+            current_node->prev->next = current_node->next;              \
+            free(current_node);                                         \
+        }                                                               \
+        (LL)->length--;                                                 \
+    }                                                                   \
+})
+
 //TODO: delete_value()
 //TODO: search_pos()
 //TODO: search_value()
