@@ -1,5 +1,5 @@
 /** @file ds.h
- *  @brief Data structure functions.
+ *  @brief Data structures
  *  @author flp2113
  */
 
@@ -234,6 +234,15 @@
 })
 
 //TODO: delete_value()
+/**
+ * @brief Delete a node with a specified value in a linked list.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param LL Linked list pointer. (&linked_list)
+ * @param INDEX Index to be deleted in linked list. (0, 1, 2, ...)
+ * @return Void.
+ **/
+#define DELETE_VALUE_LL(TYPE, LL, VALUE) ({})
+
 //TODO: search_pos()
 //TODO: search_value()
 //TODO: concat()

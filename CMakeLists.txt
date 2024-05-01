@@ -7,4 +7,5 @@ add_executable(baselib source/main.c
         source/ds.h
         source/baselib.h
         source/defs.h
-        source/ds.c)
+        source/ds.c
+        source/test.h)
