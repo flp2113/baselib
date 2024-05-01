@@ -32,7 +32,7 @@
         struct node_##TYPE* head;               \
         struct node_##TYPE* tail;               \
         unsigned int length;                    \
-    } ll_##TYPE;
+    } ll_##TYPE;                                \
 
 /**
  * @brief Print linked list.
@@ -58,7 +58,7 @@
  **/
 #define CREATE_NODE(TYPE, DATA) ({                                          \
     node_##TYPE* new_node = (node_##TYPE*)malloc(sizeof(node_##TYPE));      \
-    new_node->data = (DATA);                                                \
+    new_node->data = DATA;                                                  \
     new_node->next = NULL;                                                  \
     new_node->prev = NULL;                                                  \
     new_node;                                                               \
@@ -77,8 +77,8 @@
         (LL)->head = new_node;                              \
         (LL)->tail = new_node;                              \
     } else {                                                \
-        new_node->prev = (LL)->tail;                        \
         (LL)->tail->next = new_node;                        \
+        new_node->prev = (LL)->tail;                        \
         (LL)->tail = new_node;                              \
     }                                                       \
     (LL)->length++;                                         \
@@ -177,7 +177,7 @@
  **/
 #define DELETE_HEAD_LL(LL) ({ \
     if((LL)->head == NULL) { \
-        puts("DELETING HEAD NODE, BUT LINKED LIST IS EMPTY. ");     \
+        puts("DELETING HEAD NODE, BUT LINKED LIST IS EMPTY.\n");     \
         exit(FAILURE);                                              \
     } else if((LL)->length == 1) {                                  \
         free((LL)->head);                                           \
@@ -191,7 +191,6 @@
     (LL)->length--;                                                 \
 })
 
-//TODO: delete_pos() WORKING ON
 /**
  * @brief Delete a node in a specified position in a linked list.
  * @param TYPE Data type. (int, float, double, char, ...)
@@ -199,42 +198,39 @@
  * @param INDEX Index to be deleted in linked list. (0, 1, 2, ...)
  * @return Void.
  **/
-#define DELETE_POS_LL(TYPE, LL, INDEX) ({                               \
-    if(INDEX < 0 || INDEX > ((LL)->length - 1)){                        \
-        puts("OUT OF BOUNDS LINKED LIST DELETION.\n");                  \
-        exit(FAILURE);                                                  \
-    } else {                                                            \
-        if(INDEX == 0){                                                 \
-            if((LL)->length == 1){                                      \
-                free((LL)->head);                                       \
-                (LL)->head = NULL;                                      \
-                (LL)->tail = NULL;                                      \
-            } else {                                                    \
-                (LL)->head = (LL)->head->next;                          \
-                free((LL)->head->prev);                                 \
-                (LL)->head->prev = NULL;                                \
-            }                                                           \
-        } else if(INDEX == ((LL)->length - 1)){                         \
-            if(((LL)->length - 1) == 1){                                \
-                free((LL)->head);                                       \
-                (LL)->head = NULL;                                      \
-                (LL)->tail = NULL;                                      \
-            } else {                                                    \
-                (LL)->tail = (LL)->tail->prev;                          \
-                free((LL)->tail->next);                                 \
-                (LL)->tail->next = NULL;                                \
-            }                                                           \
-        } else {                                                        \
-            node_##TYPE* current_node = (LL)->head;                     \
-            for(int i = 0; i <= INDEX; i++){                            \
-                current_node = current_node->next;                      \
-            }                                                           \
-            current_node->next->prev = current_node->prev;              \
-            current_node->prev->next = current_node->next;              \
-            free(current_node);                                         \
-        }                                                               \
-        (LL)->length--;                                                 \
-    }                                                                   \
+#define DELETE_POS_LL(TYPE, LL, INDEX) ({                           \
+    if((LL)->head == NULL){                                         \
+        puts("LINKED LIST IS EMPTY.\n");                            \
+        exit(FAILURE);                                              \
+    } else if(INDEX < 0 || INDEX > (LL)->length - 1) {              \
+        puts("OUT OF BOUNDS DELETION LINKED LIST.\n");              \
+        exit(FAILURE);                                              \
+    } else {                                                        \
+        node_##TYPE* current_node = (LL)->head;                     \
+        for(int i = 0; i < INDEX; i++){                             \
+            current_node = current_node->next;                      \
+        }                                                           \
+        if(current_node == (LL)->head){                             \
+            if((LL)->length == 1){                                  \
+                free((LL)->head);                                   \
+                (LL)->head = NULL;                                  \
+                (LL)->tail = NULL;                                  \
+            } else {                                                \
+                (LL)->head = (LL)->head->next;                      \
+                free((LL)->head->prev);                             \
+                (LL)->head->prev = NULL;                            \
+            }                                                       \
+        } else if(current_node == (LL)->tail){                      \
+            (LL)->tail = (LL)->tail->prev;                          \
+            free((LL)->tail->next);                                 \
+            (LL)->tail->next = NULL;                                \
+        } else {                                                    \
+            current_node->prev->next = current_node->next;          \
+            current_node->next->prev = current_node->prev;          \
+            free(current_node);                                     \
+        }                                                           \
+        (LL)->length--;                                             \
+    }                                                               \
 })
 
 //TODO: delete_value()

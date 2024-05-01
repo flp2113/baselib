@@ -6,7 +6,7 @@ DEFINE_NODE(int);
 DEFINE_LINKED_LIST(int);
 
 int main(){
-    ll_int linked_list;
+    ll_int linked_list = {NULL, NULL, 0};
 
     APPEND_LL(int, &linked_list, 10);
     APPEND_LL(int, &linked_list, 20);
@@ -22,7 +22,7 @@ int main(){
 
     //DELETE_HEAD_LL(&linked_list);
 
-    DELETE_POS_LL(int, &linked_list, 6);
+    DELETE_POS_LL(int, &linked_list, 4);
 
     PRINT_LL("%d -> ", int, &linked_list);
 
