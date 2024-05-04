@@ -3,5 +3,6 @@
 
 #include "defs.h"
 #include "ds.h"
+#include "test.h"
 
 #endif //BASELIB_BASELIB_H
