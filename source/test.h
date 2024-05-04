@@ -100,7 +100,7 @@ void lib_test(ll_int* linked_list){
 #endif
     //DELETE_VALUE_LL(int, linked_list, 7);
 
-    PRINT_LL("%d -> ", int, linked_list);
+    //PRINT_LL("%d -> ", int, linked_list);
 }
 
 #endif //BASELIB_TEST_H

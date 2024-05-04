@@ -281,7 +281,6 @@
         }                                                                   \
 })
 
-//TODO: search_pos()
 /**
  * @brief Search for a node in a specified position.
  * @param TYPE Data type. (int, float, double, char, ...)
@@ -307,7 +306,6 @@
     result;                                                                 \
 })
 
-//TODO: search_value()
 /**
  * @brief Delete a node with a specified value in a linked list.
  * @param TYPE Data type. (int, float, double, char, ...)
@@ -337,7 +335,18 @@
     result;                                                                 \
 })
 
-//TODO: concat()
+/**
+ * @brief Concatenate a linked list to another one.
+ * @param f_LL Main linked list. (&linked_list)
+ * @param s_LL Linked list to be concatenated. (&linked_list2)
+ * @return Void.
+ **/
+#define CONCAT_LL(f_LL, s_LL) ({            \
+    (f_LL)->tail->next = (s_LL)->head;      \
+    (f_LL)->tail = (s_LL)->tail;            \
+    (f_LL)->length += (s_LL)->length;       \
+})
+
 //TODO: sort()
 //TODO: merge()
 //TODO: split()
