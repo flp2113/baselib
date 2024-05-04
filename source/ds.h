@@ -177,7 +177,7 @@
  **/
 #define DELETE_HEAD_LL(LL) ({ \
     if((LL)->head == NULL) { \
-        puts("DELETING HEAD NODE, BUT LINKED LIST IS EMPTY.\n");     \
+        puts("DELETING HEAD NODE, BUT LINKED LIST IS EMPTY.\n");    \
         exit(FAILURE);                                              \
     } else if((LL)->length == 1) {                                  \
         free((LL)->head);                                           \
@@ -237,7 +237,7 @@
  * @brief Delete a node with a specified value in a linked list.
  * @param TYPE Data type. (int, float, double, char, ...)
  * @param LL Linked list pointer. (&linked_list)
- * @param INDEX Index to be deleted in linked list. (0, 1, 2, ...)
+ * @param VALUE Value that contains in a node. (0, 1, 2, ...)
  * @return Void.
  **/
 #define DELETE_VALUE_LL(TYPE, LL, VALUE) ({                                 \
@@ -257,7 +257,7 @@
                 }                                                           \
             } else {                                                        \
                 node_##TYPE* current_node = (LL)->head->next;               \
-                while(current_node->data != NULL){                          \
+                while(current_node != NULL){                                \
                     if(current_node->data == VALUE){                        \
                         if(current_node == (LL)->tail){                     \
                             (LL)->tail = (LL)->tail->prev;                  \
@@ -282,7 +282,61 @@
 })
 
 //TODO: search_pos()
+/**
+ * @brief Search for a node in a specified position.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param LL Linked list pointer. (&linked_list)
+ * @param INDEX Index to be deleted in linked list. (0, 1, 2, ...)
+ * @return Node pointer.
+ **/
+#define SEARCH_POS_LL(TYPE, LL, INDEX) ({                                   \
+    node_##TYPE* result = NULL;                                             \
+    if((LL)->head == NULL){                                                 \
+        puts("LINKED LIST IS EMPTY.\n");                                    \
+        exit(FAILURE);                                                      \
+    } else if(INDEX < 0 || INDEX > ((LL)->length - 1)){                     \
+        puts("OUT OF BOUNDS SEARCH LINKED LIST.\n");                        \
+        exit(FAILURE);                                                      \
+    } else {                                                                \
+        node_##TYPE* current_node = (LL)->head;                             \
+        for(int i = 0; i < INDEX; i++){                                     \
+            current_node = current_node->next;                              \
+        }                                                                   \
+        result = current_node;                                              \
+    }                                                                       \
+    result;                                                                 \
+})
+
 //TODO: search_value()
+/**
+ * @brief Delete a node with a specified value in a linked list.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param LL Linked list pointer. (&linked_list)
+ * @param VALUE Value that contains in a node. (0, 1, 2, ...)
+ * @return Node pointer.
+ **/
+#define SEARCH_VALUE_LL(TYPE, LL, VALUE) ({                                 \
+    node_##TYPE* result = NULL;                                             \
+    if((LL)->head == NULL){                                                 \
+        puts("LINKED LIST IS EMPTY.\n");                                    \
+        exit(FAILURE);                                                      \
+    } else {                                                                \
+        node_##TYPE* current_node = (LL)->head;                             \
+        while(current_node != NULL){                                        \
+            if(current_node->data == VALUE){                                \
+                result = current_node;                                      \
+                break;                                                      \
+            }                                                               \
+            current_node = current_node->next;                              \
+        }                                                                   \
+        if(current_node == NULL){                                           \
+            puts("VALUE NOT FOUND IN THE LINKED LIST.\n");                  \
+            exit(FAILURE);                                                  \
+        }                                                                   \
+    }                                                                       \
+    result;                                                                 \
+})
+
 //TODO: concat()
 //TODO: sort()
 //TODO: merge()

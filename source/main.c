@@ -8,5 +8,9 @@ int main(){
 
     lib_test(&linked_list);
 
+    node_int* my_node = SEARCH_VALUE_LL(int, &linked_list, 7);
+
+    printf("%d", my_node->data);
+
     return SUCCESS;
 }

@@ -98,7 +98,7 @@ void lib_test(ll_int* linked_list){
     assert(linked_list->tail->data == 10);
     assert(linked_list->length == 1);
 #endif
-    DELETE_VALUE_LL(int, linked_list, 7);
+    //DELETE_VALUE_LL(int, linked_list, 7);
 
     PRINT_LL("%d -> ", int, linked_list);
 }
