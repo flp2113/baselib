@@ -16,23 +16,23 @@
  * @brief Generic node struct.
  * @param TYPE Data type. (int, float, double, char, ...)
  **/
-#define DEFINE_NODE(TYPE)                       \
-    typedef struct node_##TYPE{                 \
-        TYPE data;                              \
-        struct node_##TYPE* next;               \
-        struct node_##TYPE* prev;               \
+#define DEFINE_NODE(TYPE)\
+    typedef struct node_##TYPE{\
+        TYPE data;\
+        struct node_##TYPE* next;\
+        struct node_##TYPE* prev;\
     } node_##TYPE;
 
 /**
  * @brief Generic linked list struct.
  * @param TYPE Data type. (int, float, double, char, ...)
  **/
-#define DEFINE_LINKED_LIST(TYPE)                \
-    typedef struct ll_##TYPE{                   \
-        struct node_##TYPE* head;               \
-        struct node_##TYPE* tail;               \
-        unsigned int length;                    \
-    } ll_##TYPE;                                \
+#define DEFINE_LINKED_LIST(TYPE)\
+    typedef struct ll_##TYPE{\
+        struct node_##TYPE* head;\
+        struct node_##TYPE* tail;\
+        unsigned int length;\
+    } ll_##TYPE;
 
 /**
  * @brief Print linked list.
@@ -41,13 +41,13 @@
  * @param LL Linked list pointer. (&linked_list)
  * @return Void.
  **/
-#define PRINT_LL(FORMAT, TYPE, LL) ({           \
-    node_##TYPE* current_node = (LL)->head;     \
-    while(current_node != NULL){                \
-        printf(FORMAT, current_node->data);     \
-        current_node = current_node->next;      \
-    }                                           \
-    printf("NULL\n");                           \
+#define PRINT_LL(FORMAT, TYPE, LL) ({\
+    node_##TYPE* current_node = (LL)->head;\
+    while(current_node != NULL){\
+        printf(FORMAT, current_node->data);\
+        current_node = current_node->next;\
+    }\
+    printf("NULL\n");\
 })
 
 /**
@@ -56,12 +56,12 @@
  * @param DATA User data. (10, "c", "15", ...)
  * @return Node pointer.
  **/
-#define CREATE_NODE(TYPE, DATA) ({                                          \
-    node_##TYPE* new_node = (node_##TYPE*)malloc(sizeof(node_##TYPE));      \
-    new_node->data = DATA;                                                  \
-    new_node->next = NULL;                                                  \
-    new_node->prev = NULL;                                                  \
-    new_node;                                                               \
+#define CREATE_NODE(TYPE, DATA) ({\
+    node_##TYPE* new_node = (node_##TYPE*)malloc(sizeof(node_##TYPE));\
+    new_node->data = DATA;\
+    new_node->next = NULL;\
+    new_node->prev = NULL;\
+    new_node;\
 })
 
 /**
@@ -288,22 +288,22 @@
  * @param INDEX Index to be deleted in linked list. (0, 1, 2, ...)
  * @return Node pointer.
  **/
-#define SEARCH_POS_LL(TYPE, LL, INDEX) ({                                   \
-    node_##TYPE* result = NULL;                                             \
-    if((LL)->head == NULL){                                                 \
-        puts("LINKED LIST IS EMPTY.\n");                                    \
-        exit(FAILURE);                                                      \
-    } else if(INDEX < 0 || INDEX > ((LL)->length - 1)){                     \
-        puts("OUT OF BOUNDS SEARCH LINKED LIST.\n");                        \
-        exit(FAILURE);                                                      \
-    } else {                                                                \
-        node_##TYPE* current_node = (LL)->head;                             \
-        for(int i = 0; i < INDEX; i++){                                     \
-            current_node = current_node->next;                              \
-        }                                                                   \
-        result = current_node;                                              \
-    }                                                                       \
-    result;                                                                 \
+#define SEARCH_POS_LL(TYPE, LL, INDEX) ({\
+    node_##TYPE* result = NULL;\
+    if((LL)->head == NULL){\
+        puts("LINKED LIST IS EMPTY.\n");\
+        exit(FAILURE);\
+    } else if(INDEX < 0 || INDEX > ((LL)->length - 1)){\
+        puts("OUT OF BOUNDS SEARCH LINKED LIST.\n");\
+        exit(FAILURE);\
+    } else {\
+        node_##TYPE* current_node = (LL)->head;\
+        for(int i = 0; i < INDEX; i++){\
+            current_node = current_node->next;\
+        }\
+        result = current_node;\
+    }\
+    result;\
 })
 
 /**
@@ -313,26 +313,26 @@
  * @param VALUE Value that contains in a node. (0, 1, 2, ...)
  * @return Node pointer.
  **/
-#define SEARCH_VALUE_LL(TYPE, LL, VALUE) ({                                 \
-    node_##TYPE* result = NULL;                                             \
-    if((LL)->head == NULL){                                                 \
-        puts("LINKED LIST IS EMPTY.\n");                                    \
-        exit(FAILURE);                                                      \
-    } else {                                                                \
-        node_##TYPE* current_node = (LL)->head;                             \
-        while(current_node != NULL){                                        \
-            if(current_node->data == VALUE){                                \
-                result = current_node;                                      \
-                break;                                                      \
-            }                                                               \
-            current_node = current_node->next;                              \
-        }                                                                   \
-        if(current_node == NULL){                                           \
-            puts("VALUE NOT FOUND IN THE LINKED LIST.\n");                  \
-            exit(FAILURE);                                                  \
-        }                                                                   \
-    }                                                                       \
-    result;                                                                 \
+#define SEARCH_VALUE_LL(TYPE, LL, VALUE) ({\
+    node_##TYPE* result = NULL;\
+    if((LL)->head == NULL){\
+        puts("LINKED LIST IS EMPTY.\n");\
+        exit(FAILURE);\
+    } else {\
+        node_##TYPE* current_node = (LL)->head;\
+        while(current_node != NULL){\
+            if(current_node->data == VALUE){\
+                result = current_node;\
+                break;\
+            }\
+            current_node = current_node->next;\
+        }\
+        if(current_node == NULL){\
+            puts("VALUE NOT FOUND IN THE LINKED LIST.\n");\
+            exit(FAILURE);\
+        }\
+    }\
+    result;\
 })
 
 /**
@@ -341,10 +341,10 @@
  * @param s_LL Linked list to be concatenated. (&linked_list2)
  * @return Void.
  **/
-#define CONCAT_LL(f_LL, s_LL) ({            \
-    (f_LL)->tail->next = (s_LL)->head;      \
-    (f_LL)->tail = (s_LL)->tail;            \
-    (f_LL)->length += (s_LL)->length;       \
+#define CONCAT_LL(f_LL, s_LL) ({\
+    (f_LL)->tail->next = (s_LL)->head;\
+    (f_LL)->tail = (s_LL)->tail;\
+    (f_LL)->length += (s_LL)->length;\
 })
 
 //TODO: sort()
@@ -356,8 +356,8 @@
  * @param LL Linked list pointer. (&linked_list)
  * @return Size of the linked list.
  **/
-#define LENGTH_LL(LL) ({ \
-    (LL)->length;        \
+#define LENGTH_LL(LL) ({\
+    (LL)->length;\
 })
 
 /**
@@ -365,8 +365,8 @@
  * @param LL Linked list pointer. (&linked_list)
  * @return Pointer to the head of the linked list.
  **/
-#define HEAD_LL(LL) ({  \
-    (LL)->head;         \
+#define HEAD_LL(LL) ({\
+    (LL)->head;\
 })
 
 /**
@@ -374,8 +374,47 @@
  * @param LL Linked list pointer. (&linked_list)
  * @return Pointer to the tail of the linked list.
  **/
-#define TAIL_LL(LL) ({  \
-    (LL)->tail;         \
+#define TAIL_LL(LL) ({\
+    (LL)->tail;\
 })
+
+#define DEFINE_STACK(TYPE)\
+    typedef struct stack_##TYPE{\
+        struct node_##TYPE* top;\
+        unsigned int size;\
+    } stack_##TYPE;\
+
+#define STACK_PUSH(TYPE, STACK, DATA) ({\
+    node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);\
+    if((STACK)->top == NULL){\
+        (STACK)->top = new_node;\
+    } else {\
+        (STACK)->top->next = new_node;\
+        new_node->prev = (STACK)->top;\
+        (STACK)->top = new_node;\
+    }\
+    (STACK)->size++;\
+})
+
+#define STACK_POP(STACK) ({\
+    if((STACK)->head == NULL){\
+        puts("STACK IS EMPTY.\n");\
+        exit(FAILURE);\
+    } else {\
+        if((STACK)->size == 1){\
+            free((STACK)->top);\
+            (STACK)->top = NULL;\
+        } else {\
+            (STACK)->top = (STACK)->top->prev;\
+            free((STACK)->top->next);\
+            (STACK)->top->next = NULL;\
+        }\
+        (STACK)->size--;\
+    }\
+})
+
+
+
+
 
 #endif //BASELIB_DS_H

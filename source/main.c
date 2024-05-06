@@ -1,8 +1,12 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "baselib.h"
 
+DEFINE_STACK(int);
+
 int main(){
+    /*
     ll_int linked_list = {NULL, NULL, 0};
     ll_int linked_list2 = {NULL, NULL, 0};
 
@@ -18,7 +22,9 @@ int main(){
     printf("%d", head->data);
 
     PRINT_LL("%d -> ", int, &linked_list);
+    */
 
+    stack_int stack = {NULL, 0};
 
     return SUCCESS;
 }
