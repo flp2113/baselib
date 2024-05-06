@@ -396,11 +396,13 @@
     (STACK)->size++;\
 })
 
-#define STACK_POP(STACK) ({\
-    if((STACK)->head == NULL){\
+#define STACK_POP(TYPE, STACK) ({\
+    TYPE data;\
+    if((STACK)->top == NULL){\
         puts("STACK IS EMPTY.\n");\
         exit(FAILURE);\
     } else {\
+        data = (STACK)->top->data;\
         if((STACK)->size == 1){\
             free((STACK)->top);\
             (STACK)->top = NULL;\
@@ -411,10 +413,7 @@
         }\
         (STACK)->size--;\
     }\
+    data;\
 })
-
-
-
-
 
 #endif //BASELIB_DS_H

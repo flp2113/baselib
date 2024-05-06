@@ -26,5 +26,14 @@ int main(){
 
     stack_int stack = {NULL, 0};
 
+    STACK_PUSH(int, &stack, 10);
+    STACK_PUSH(int, &stack, 20);
+    STACK_PUSH(int, &stack, 30);
+
+    int x = STACK_POP(int, &stack);
+
+    printf("%d", stack.top->data);
+    printf("%d", x);
+
     return SUCCESS;
 }
