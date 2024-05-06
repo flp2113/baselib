@@ -71,17 +71,17 @@
  * @param DATA User data. (10, "c", "15", ...)
  * @return Void.
  **/
-#define APPEND_LL(TYPE, LL, DATA) ({                        \
-    node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);        \
-    if((LL)->head == NULL){                                 \
-        (LL)->head = new_node;                              \
-        (LL)->tail = new_node;                              \
-    } else {                                                \
-        (LL)->tail->next = new_node;                        \
-        new_node->prev = (LL)->tail;                        \
-        (LL)->tail = new_node;                              \
-    }                                                       \
-    (LL)->length++;                                         \
+#define APPEND_LL(TYPE, LL, DATA) ({\
+    node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);\
+    if((LL)->head == NULL){\
+        (LL)->head = new_node;\
+        (LL)->tail = new_node;\
+    } else {\
+        (LL)->tail->next = new_node;\
+        new_node->prev = (LL)->tail;\
+        (LL)->tail = new_node;\
+    }\
+    (LL)->length++;\
 })
 
 /**
@@ -91,17 +91,17 @@
  * @param DATA User data. (10, "c", "15", ...)
  * @return Void.
  **/
-#define PREPEND_LL(TYPE, LL, DATA) ({                       \
-    node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);        \
-    if((LL)->head == NULL){                                 \
-        (LL)->head = new_node;                              \
-        (LL)->tail = new_node;                              \
-    } else {                                                \
-        new_node->next = (LL)->head;                        \
-        (LL)->head->prev = new_node;                        \
-        (LL)->head = new_node;                              \
-    }                                                       \
-    (LL)->length++;                                         \
+#define PREPEND_LL(TYPE, LL, DATA) ({\
+    node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);\
+    if((LL)->head == NULL){\
+        (LL)->head = new_node;\
+        (LL)->tail = new_node;\
+    } else {\
+        new_node->next = (LL)->head;\
+        (LL)->head->prev = new_node;\
+        (LL)->head = new_node;\
+    }\
+    (LL)->length++;\
 })
 
 /**
@@ -112,41 +112,41 @@
  * @param DATA User data. (10, "c", "15", ...)
  * @return Void.
  **/
-#define INSERT_LL(TYPE, LL, INDEX, DATA) ({                 \
-    if(INDEX < 0 || INDEX > (LL)->length){                  \
-        puts("OUT OF BOUNDS LINKED LIST INSERTION.\n");     \
-        exit(FAILURE);                                      \
-    } else {                                                \
-        node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);    \
-        if(INDEX == 0){                                     \
-            if((LL)->length == 0){                          \
-                (LL)->head = new_node;                      \
-                (LL)->tail = new_node;                      \
-            } else {                                        \
-                new_node->next = (LL)->head;                \
-                (LL)->head->prev = new_node;                \
-                (LL)->head = new_node;                      \
-            }                                               \
-        } else if(INDEX == (LL)->length){                   \
-                if((LL)->length == 0){                      \
-                    (LL)->head = new_node;                  \
-                    (LL)->tail = new_node;                  \
-                } else {                                    \
-                    new_node->prev = (LL)->tail;            \
-                    (LL)->tail->next = new_node;            \
-                    (LL)->tail = new_node;                  \
-                }                                           \
-        } else {                                            \
-                node_##TYPE* current_node = (LL)->head;     \
-                for(int i = 0; i < INDEX; i++){             \
-                    current_node = current_node->next;      \
-                }                                           \
-                new_node->next = current_node;              \
-                new_node->prev = current_node->prev;        \
-                current_node->prev->next = new_node;        \
-        }                                                   \
-    }                                                       \
-    (LL)->length++;                                         \
+#define INSERT_LL(TYPE, LL, INDEX, DATA) ({\
+    if(INDEX < 0 || INDEX > (LL)->length){\
+        puts("OUT OF BOUNDS LINKED LIST INSERTION.\n");\
+        exit(FAILURE);\
+    } else {\
+        node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);\
+        if(INDEX == 0){\
+            if((LL)->length == 0){\
+                (LL)->head = new_node;\
+                (LL)->tail = new_node;\
+            } else {\
+                new_node->next = (LL)->head;\
+                (LL)->head->prev = new_node;\
+                (LL)->head = new_node;\
+            }\
+        } else if(INDEX == (LL)->length){\
+                if((LL)->length == 0){\
+                    (LL)->head = new_node;\
+                    (LL)->tail = new_node;\
+                } else {\
+                    new_node->prev = (LL)->tail;\
+                    (LL)->tail->next = new_node;\
+                    (LL)->tail = new_node;\
+                }\
+        } else {\
+                node_##TYPE* current_node = (LL)->head;\
+                for(int i = 0; i < INDEX; i++){\
+                    current_node = current_node->next;\
+                }\
+                new_node->next = current_node;\
+                new_node->prev = current_node->prev;\
+                current_node->prev->next = new_node;\
+        }\
+    }\
+    (LL)->length++;\
 })
 
 /**
@@ -154,20 +154,20 @@
  * @param LL Linked list pointer. (&linked_list)
  * @return Void.
  **/
-#define DELETE_TAIL_LL(LL) ({                                       \
-    if((LL)->head == NULL){                                         \
-        puts("DELETING TAIL NODE, BUT LINKED LIST IS EMPTY.\n");    \
-        exit(FAILURE);                                              \
-    } else if((LL)->length == 1){                                   \
-        free((LL)->head);                                           \
-        (LL)->head = NULL;                                          \
-        (LL)->tail = NULL;                                          \
-    } else {                                                        \
-        (LL)->tail = (LL)->tail->prev;                              \
-        free((LL)->tail->next);                                     \
-        (LL)->tail->next = NULL;                                    \
-    }                                                               \
-    (LL)->length--;                                                 \
+#define DELETE_TAIL_LL(LL) ({\
+    if((LL)->head == NULL){\
+        puts("DELETING TAIL NODE, BUT LINKED LIST IS EMPTY.\n");\
+        exit(FAILURE);\
+    } else if((LL)->length == 1){\
+        free((LL)->head);\
+        (LL)->head = NULL;\
+        (LL)->tail = NULL;\
+    } else {\
+        (LL)->tail = (LL)->tail->prev;\
+        free((LL)->tail->next);\
+        (LL)->tail->next = NULL;\
+    }\
+    (LL)->length--;\
 })
 
 /**
@@ -175,20 +175,20 @@
  * @param LL Linked list pointer. (&linked_list)
  * @return Void.
  **/
-#define DELETE_HEAD_LL(LL) ({ \
-    if((LL)->head == NULL) { \
-        puts("DELETING HEAD NODE, BUT LINKED LIST IS EMPTY.\n");    \
-        exit(FAILURE);                                              \
-    } else if((LL)->length == 1) {                                  \
-        free((LL)->head);                                           \
-        (LL)->head = NULL;                                          \
-        (LL)->tail = NULL;                                          \
-    } else {                                                        \
-        (LL)->head = (LL)->head->next;                              \
-        free((LL)->head->prev);                                     \
-        (LL)->head->prev = NULL;                                    \
-    }                                                               \
-    (LL)->length--;                                                 \
+#define DELETE_HEAD_LL(LL) ({\
+    if((LL)->head == NULL) {\
+        puts("DELETING HEAD NODE, BUT LINKED LIST IS EMPTY.\n");\
+        exit(FAILURE);\
+    } else if((LL)->length == 1) {\
+        free((LL)->head);\
+        (LL)->head = NULL;\
+        (LL)->tail = NULL;\
+    } else {\
+        (LL)->head = (LL)->head->next;\
+        free((LL)->head->prev);\
+        (LL)->head->prev = NULL;\
+    }\
+    (LL)->length--;\
 })
 
 /**
@@ -198,39 +198,39 @@
  * @param INDEX Index to be deleted in linked list. (0, 1, 2, ...)
  * @return Void.
  **/
-#define DELETE_POS_LL(TYPE, LL, INDEX) ({                           \
-    if((LL)->head == NULL){                                         \
-        puts("LINKED LIST IS EMPTY.\n");                            \
-        exit(FAILURE);                                              \
-    } else if(INDEX < 0 || INDEX > (LL)->length - 1) {              \
-        puts("OUT OF BOUNDS DELETION LINKED LIST.\n");              \
-        exit(FAILURE);                                              \
-    } else {                                                        \
-        node_##TYPE* current_node = (LL)->head;                     \
-        for(int i = 0; i < INDEX; i++){                             \
-            current_node = current_node->next;                      \
-        }                                                           \
-        if(current_node == (LL)->head){                             \
-            if((LL)->length == 1){                                  \
-                free((LL)->head);                                   \
-                (LL)->head = NULL;                                  \
-                (LL)->tail = NULL;                                  \
-            } else {                                                \
-                (LL)->head = (LL)->head->next;                      \
-                free((LL)->head->prev);                             \
-                (LL)->head->prev = NULL;                            \
-            }                                                       \
-        } else if(current_node == (LL)->tail){                      \
-            (LL)->tail = (LL)->tail->prev;                          \
-            free((LL)->tail->next);                                 \
-            (LL)->tail->next = NULL;                                \
-        } else {                                                    \
-            current_node->prev->next = current_node->next;          \
-            current_node->next->prev = current_node->prev;          \
-            free(current_node);                                     \
-        }                                                           \
-        (LL)->length--;                                             \
-    }                                                               \
+#define DELETE_POS_LL(TYPE, LL, INDEX) ({\
+    if((LL)->head == NULL){\
+        puts("LINKED LIST IS EMPTY.\n");\
+        exit(FAILURE);\
+    } else if(INDEX < 0 || INDEX > (LL)->length - 1) {\
+        puts("OUT OF BOUNDS DELETION LINKED LIST.\n");\
+        exit(FAILURE);\
+    } else {\
+        node_##TYPE* current_node = (LL)->head;\
+        for(int i = 0; i < INDEX; i++){\
+            current_node = current_node->next;\
+        }\
+        if(current_node == (LL)->head){\
+            if((LL)->length == 1){\
+                free((LL)->head);\
+                (LL)->head = NULL;\
+                (LL)->tail = NULL;\
+            } else {\
+                (LL)->head = (LL)->head->next;\
+                free((LL)->head->prev);\
+                (LL)->head->prev = NULL;\
+            }\
+        } else if(current_node == (LL)->tail){\
+            (LL)->tail = (LL)->tail->prev;\
+            free((LL)->tail->next);\
+            (LL)->tail->next = NULL;\
+        } else {\
+            current_node->prev->next = current_node->next;\
+            current_node->next->prev = current_node->prev;\
+            free(current_node);\
+        }\
+        (LL)->length--;\
+    }\
 })
 
 /**
@@ -240,45 +240,45 @@
  * @param VALUE Value that contains in a node. (0, 1, 2, ...)
  * @return Void.
  **/
-#define DELETE_VALUE_LL(TYPE, LL, VALUE) ({                                 \
-        if((LL)->head == NULL){                                             \
-            puts("LINKED LIST IS EMPTY.\n");                                \
-            exit(FAILURE);                                                  \
-        } else {                                                            \
-            if((LL)->head->data == VALUE){                                  \
-                if((LL)->length == 1){                                      \
-                    free((LL)->head);                                       \
-                    (LL)->head = NULL;                                      \
-                    (LL)->tail = NULL;                                      \
-                } else {                                                    \
-                    (LL)->head = (LL)->head->next;                          \
-                    free((LL)->head->prev);                                 \
-                    (LL)->head->prev = NULL;                                \
-                }                                                           \
-            } else {                                                        \
-                node_##TYPE* current_node = (LL)->head->next;               \
-                while(current_node != NULL){                                \
-                    if(current_node->data == VALUE){                        \
-                        if(current_node == (LL)->tail){                     \
-                            (LL)->tail = (LL)->tail->prev;                  \
-                            free((LL)->tail->next);                         \
-                            (LL)->tail->next = NULL;                        \
-                        } else {                                            \
-                            current_node->prev->next = current_node->next;  \
-                            current_node->next->prev = current_node->prev;  \
-                            free(current_node);                             \
-                        }                                                   \
-                        break;                                              \
-                    }                                                       \
-                    current_node = current_node->next;                      \
-                }                                                           \
-                if(current_node == NULL){                                   \
-                    puts("VALUE NOT FOUND IN LINKED LIST.\n");              \
-                    exit(FAILURE);                                          \
-                }                                                           \
-            }                                                               \
-            (LL)->length--;                                                 \
-        }                                                                   \
+#define DELETE_VALUE_LL(TYPE, LL, VALUE) ({\
+        if((LL)->head == NULL){\
+            puts("LINKED LIST IS EMPTY.\n");\
+            exit(FAILURE);\
+        } else {\
+            if((LL)->head->data == VALUE){\
+                if((LL)->length == 1){\
+                    free((LL)->head);\
+                    (LL)->head = NULL;\
+                    (LL)->tail = NULL;\
+                } else {\
+                    (LL)->head = (LL)->head->next;\
+                    free((LL)->head->prev);\
+                    (LL)->head->prev = NULL;\
+                }\
+            } else {\
+                node_##TYPE* current_node = (LL)->head->next;\
+                while(current_node != NULL){\
+                    if(current_node->data == VALUE){\
+                        if(current_node == (LL)->tail){\
+                            (LL)->tail = (LL)->tail->prev;\
+                            free((LL)->tail->next);\
+                            (LL)->tail->next = NULL;\
+                        } else {\
+                            current_node->prev->next = current_node->next;\
+                            current_node->next->prev = current_node->prev;\
+                            free(current_node);\
+                        }\
+                        break;\
+                    }\
+                    current_node = current_node->next;\
+                }\
+                if(current_node == NULL){\
+                    puts("VALUE NOT FOUND IN LINKED LIST.\n");\
+                    exit(FAILURE);\
+                }\
+            }\
+            (LL)->length--;\
+        }\
 })
 
 /**
