@@ -416,4 +416,14 @@
     data;\
 })
 
+#define DEFINE_QUEUE(TYPE)\
+    typedef struct queue_##TYPE{\
+        struct node_##TYPE* first;\
+        unsigned int size;\
+    } queue_##TYPE;\
+
+#define QUEUE_ENQUEUE() ({ \
+                               \
+})
+
 #endif //BASELIB_DS_H

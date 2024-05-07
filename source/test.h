@@ -9,6 +9,7 @@
 
 DEFINE_NODE(int);
 DEFINE_LINKED_LIST(int);
+DEFINE_STACK(int);
 
 void lib_test(ll_int* linked_list){
     APPEND_LL(int, linked_list, 10);

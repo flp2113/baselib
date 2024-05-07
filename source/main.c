@@ -3,8 +3,6 @@
 
 #include "baselib.h"
 
-DEFINE_STACK(int);
-
 int main(){
     /*
     ll_int linked_list = {NULL, NULL, 0};
