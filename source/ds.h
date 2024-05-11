@@ -418,12 +418,42 @@
 
 #define DEFINE_QUEUE(TYPE)\
     typedef struct queue_##TYPE{\
-        struct node_##TYPE* first;\
-        unsigned int size;\
+        struct node_##TYPE* head; \
+        struct node_##TYPE* tail; \
+        unsigned int length;\
     } queue_##TYPE;\
 
-#define QUEUE_ENQUEUE() ({ \
-                               \
+#define QUEUE_ENQUEUE(TYPE, QUEUE, DATA) ({\
+    node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);\
+    if((QUEUE)->head == NULL){\
+        (QUEUE)->head = new_node;\
+        (QUEUE)->tail = new_node;\
+    } else {\
+        (QUEUE)->tail->next = new_node;\
+        (QUEUE)->tail = new_node;\
+    }\
+    (QUEUE)->length++;\
+})
+
+#define QUEUE_DEQUEUE(TYPE, QUEUE) ({\
+    TYPE data;\
+    if((QUEUE)->head == NULL){\
+        puts("QUEUE IS EMPTY.\n");\
+        exit(FAILURE);\
+    } else {\
+        data = (QUEUE)->head->data;\
+        if((QUEUE)->length == 1){\
+            free((QUEUE)->head);\
+            (QUEUE)->head = NULL;\
+            (QUEUE)->tail = NULL;\
+        } else {\
+            (QUEUE)->head = (QUEUE)->head->next;\
+            free((QUEUE)->head->prev);\
+            (QUEUE)->head->prev = NULL;\
+        }\
+        (QUEUE)->length--;\
+    }\
+    data;\
 })
 
 #endif //BASELIB_DS_H

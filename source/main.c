@@ -3,6 +3,8 @@
 
 #include "baselib.h"
 
+DEFINE_QUEUE(int);
+
 int main(){
     /*
     ll_int linked_list = {NULL, NULL, 0};
@@ -22,6 +24,7 @@ int main(){
     PRINT_LL("%d -> ", int, &linked_list);
     */
 
+    /*
     stack_int stack = {NULL, 0};
 
     STACK_PUSH(int, &stack, 10);
@@ -32,6 +35,23 @@ int main(){
 
     printf("%d", stack.top->data);
     printf("%d", x);
+    */
+
+    queue_int queue = {NULL, NULL, 0};
+
+    QUEUE_ENQUEUE(int, &queue, 10);
+    QUEUE_ENQUEUE(int, &queue, 20);
+    QUEUE_ENQUEUE(int, &queue, 30);
+
+    printf("%d ", queue.head->data);
+    printf("%d ", queue.head->next->data);
+    printf("%d ", queue.head->next->next->data);
+
+    int x = QUEUE_DEQUEUE(int, &queue);
+    QUEUE_DEQUEUE(int, &queue);
+    QUEUE_DEQUEUE(int, &queue);
+
+    printf("FIRST: %d ", x);
 
     return SUCCESS;
 }
