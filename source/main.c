@@ -38,20 +38,17 @@ int main(){
     */
 
     queue_int queue = {NULL, NULL, 0};
+    stack_int stack = {NULL, 0};
 
-    QUEUE_ENQUEUE(int, &queue, 10);
-    QUEUE_ENQUEUE(int, &queue, 20);
-    QUEUE_ENQUEUE(int, &queue, 30);
+    STACK_PUSH(int, &stack, 10);
+    STACK_PUSH(int, &stack, 20);
+    STACK_PUSH(int, &stack, 30);
 
-    printf("%d ", queue.head->data);
-    printf("%d ", queue.head->next->data);
-    printf("%d ", queue.head->next->next->data);
+    int x = STACK_POP(int, &stack);
+    x = STACK_POP(int, &stack);
+    x = STACK_POP(int, &stack);
 
-    int x = QUEUE_DEQUEUE(int, &queue);
-    QUEUE_DEQUEUE(int, &queue);
-    QUEUE_DEQUEUE(int, &queue);
-
-    printf("FIRST: %d ", x);
+    printf("%d", x);
 
     return SUCCESS;
 }

@@ -1,8 +1,3 @@
-/** @file ds.h
- *  @brief Data structures
- *  @author flp2113
- */
-
 #ifndef BASELIB_DS_H
 #define BASELIB_DS_H
 
@@ -378,12 +373,23 @@
     (LL)->tail;\
 })
 
+/**
+ * @brief Generic stack struct.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ **/
 #define DEFINE_STACK(TYPE)\
     typedef struct stack_##TYPE{\
         struct node_##TYPE* top;\
         unsigned int size;\
     } stack_##TYPE;\
 
+/**
+ * @brief Push a node in a stack.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param STACK Stack pointer. (&stack)
+ * @param DATA User data. (10, "c", "15", ...)
+ * @return Void.
+ **/
 #define STACK_PUSH(TYPE, STACK, DATA) ({\
     node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);\
     if((STACK)->top == NULL){\
@@ -396,6 +402,12 @@
     (STACK)->size++;\
 })
 
+/**
+ * @brief Pop off a node in a stack.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param STACK Stack pointer. (&stack)
+ * @return Data with the specified type.
+ **/
 #define STACK_POP(TYPE, STACK) ({\
     TYPE data;\
     if((STACK)->top == NULL){\
@@ -416,6 +428,10 @@
     data;\
 })
 
+/**
+ * @brief Generic queue struct.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ **/
 #define DEFINE_QUEUE(TYPE)\
     typedef struct queue_##TYPE{\
         struct node_##TYPE* head; \
@@ -423,6 +439,13 @@
         unsigned int length;\
     } queue_##TYPE;\
 
+/**
+ * @brief Enqueue a node in a queue.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param QUEUE Queue pointer. (&queue)
+ * @param DATA User data. (10, "c", "15", ...)
+ * @return Void.
+ **/
 #define QUEUE_ENQUEUE(TYPE, QUEUE, DATA) ({\
     node_##TYPE* new_node = CREATE_NODE(TYPE, DATA);\
     if((QUEUE)->head == NULL){\
@@ -435,6 +458,12 @@
     (QUEUE)->length++;\
 })
 
+/**
+ * @brief Dequeue a node in a queue.
+ * @param TYPE Data type. (int, float, double, char, ...)
+ * @param QUEUE Queue pointer. (&queue)
+ * @return Data with the specified type.
+ **/
 #define QUEUE_DEQUEUE(TYPE, QUEUE) ({\
     TYPE data;\
     if((QUEUE)->head == NULL){\
