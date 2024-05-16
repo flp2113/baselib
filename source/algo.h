@@ -5,6 +5,7 @@
 
 #include "base.h"
 
-int binary_search(const int* array, int low, int high, int target);
+int binary_search(int[], int, int, int);
+int binary_search_recursive(int[], int, int, int);
 
 #endif //BASELIB_ALGO_H
