@@ -1,8 +1,6 @@
 #ifndef BASELIB_ALGO_H
 #define BASELIB_ALGO_H
 
-#include <malloc.h>
-
 #include "base.h"
 
 int binary_search(int[], int, int, int);

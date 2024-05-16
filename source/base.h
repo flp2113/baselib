@@ -5,6 +5,10 @@
 
 void swap(int* x, int* y);
 
-void print_array(int* array, int size);
+#define PRINT_ARRAY(FORMAT, ARRAY, SIZE) ({\
+    for(int i = 0; i < SIZE; i++){\
+        printf(FORMAT, ARRAY[i]);\
+    }\
+})
 
 #endif //BASELIB_BASE_H
