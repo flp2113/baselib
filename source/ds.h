@@ -351,27 +351,21 @@
  * @param LL Linked list pointer. (&linked_list)
  * @return Size of the linked list.
  **/
-#define LENGTH_LL(LL) ({\
-    (LL)->length;\
-})
+#define LENGTH_LL(LL) ({(LL)->length;})
 
 /**
  * @brief Pointer to the head of the linked list.
  * @param LL Linked list pointer. (&linked_list)
  * @return Pointer to the head of the linked list.
  **/
-#define HEAD_LL(LL) ({\
-    (LL)->head;\
-})
+#define HEAD_LL(LL) ({(LL)->head;})
 
 /**
  * @brief Pointer to the tail of the linked list.
  * @param LL Linked list pointer. (&linked_list)
  * @return Pointer to the tail of the linked list.
  **/
-#define TAIL_LL(LL) ({\
-    (LL)->tail;\
-})
+#define TAIL_LL(LL) ({(LL)->tail;})
 
 /**
  * @brief Generic stack struct.
