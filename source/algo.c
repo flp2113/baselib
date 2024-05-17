@@ -1,13 +1,5 @@
 #include "algo.h"
 
-int binary_search(int array[], int low, int high, int target){
-    int mid = (low + high) / 2;
-    if(low > high){ return -1; }
-    else if(array[mid] == target){ return mid; }
-    else if(array[mid] > target){ return binary_search(array, low, mid - 1, target); }
-    else{ return binary_search(array, mid + 1, high, target); }
-}
-
 int array_min(int array[], int size){
     int min = array[0], min_index = 0;
     for(int i = 1; i < size; i++){
@@ -28,6 +20,29 @@ int array_max(int array[], int size){
         }
     }
     return max_index;
+}
+
+int factorial(int x){
+    if(x == 1){ return 1; }
+    return x * factorial(x - 1);
+}
+
+int fibonacci(int index){
+    int a = 0, b = 1, c = 1;
+    for(int i = 2; i <= index; i++){
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return c;
+}
+
+int binary_search(int array[], int low, int high, int target){
+    int mid = (low + high) / 2;
+    if(low > high){ return -1; }
+    else if(array[mid] == target){ return mid; }
+    else if(array[mid] > target){ return binary_search(array, low, mid - 1, target); }
+    else{ return binary_search(array, mid + 1, high, target); }
 }
 
 void selection_sort(int array[], int size){

@@ -23,7 +23,7 @@ int main()
 
     PRINT_ARRAY("%d ", a, 5);
 
-
+    printf("%d", fibonacci(6));
 
 
     return 0;
