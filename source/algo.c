@@ -1,5 +1,18 @@
 #include "algo.h"
 
+void swap(int* x, int* y){
+    int tmp = *x;
+    *x = *y;
+    *y = tmp;
+}
+
+void rand_fill_array(int array[], int size, int limit){
+    srand(time(NULL));
+    for(int i = 0; i < size; i++){
+        array[i] = rand() % limit;
+    }
+}
+
 int array_min(int array[], int size){
     int min = array[0], min_index = 0;
     for(int i = 1; i < size; i++){
